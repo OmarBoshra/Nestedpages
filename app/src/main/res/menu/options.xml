@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+
+    <item
+        android:title="TrashCan ▥"
+        android:id="@+id/tc"
+        android:visible="false"
+        ></item>
+    <item
+        android:title="h"
+        android:id="@+id/ml"
+        android:icon="@drawable/home"
+        app:showAsAction="always"
+        ></item>
+    <item
+        android:title="Search"
+        android:id="@+id/search"
+       android:icon="@drawable/search"
+        app:showAsAction="always"
+        android:visible="false"
+        ></item>
+    <item
+        android:title="➕✎"
+        app:showAsAction="always"
+        android:id="@+id/addsub"
+        ></item>
+    <item
+        android:title="Fs"
+        android:icon="@drawable/edit"
+        android:id="@+id/edit"
+        app:showAsAction="always"
+
+        ></item>
+    <item
+        android:title="delete"
+        android:icon="@drawable/trash"
+        android:id="@+id/del"
+        app:showAsAction="always"
+        ></item>
+
+    <item
+        android:title="Convert into folder ❒ "
+        android:id="@+id/folder"
+        ></item>
+    <item
+        android:title="Book/unBookmark ★"
+        android:id="@+id/tagop"
+        ></item>
+    <item
+        android:title="Clear Formatting"
+        android:id="@+id/cf"
+        android:visible="false"
+        ></item>
+    <item
+        android:title="Cut page ✂"
+        android:id="@+id/cutp"
+        ></item>
+    <item
+        android:title="Copy page ⌸⌸"
+        android:id="@+id/copyp"
+        ></item>
+    <item
+        android:title="Save as ⌸✍"
+        android:id="@+id/spa"
+        ></item>
+    <item
+        android:title="Share Text ✈"
+        android:id="@+id/qs"
+
+        ></item>
+
+
+
+
+
+    <!--todo show later-->
+
+</menu>

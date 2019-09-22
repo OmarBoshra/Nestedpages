@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Copy selected Page only"
+        android:background="@android:color/white"
+        android:textAllCaps="false"
+        android:id="@+id/one"
+        />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Copy selected Page and its subpages"
+        android:background="@android:color/white"
+        android:textAllCaps="false"
+        android:id="@+id/all"
+        />
+
+</LinearLayout>

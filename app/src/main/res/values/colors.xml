@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+
+    <color name="colorPrimary">#7f7f7f</color>
+    <color name="colorPrimaryDark">#494949</color>
+    <color name="colorAccent">#000000</color>
+    <color name="redishh">#ff6b6d</color>
+    <color name="Lightbrown">#f5ede1</color>
+    <color name="Lightgreen">#70ff65</color>
+    <color name="Lightblue">#9fd4f7</color>
+
+
+    <color name="Lightpurpel">#a58eff</color>
+    <color name="Lightorange">#ffd78e</color>
+    <color name="pink">#f4b8ff</color>
+
+</resources>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+>
+
+    <item
+        android:title="Cut page ✂"
+        android:id="@+id/cut"
+        ></item>
+    <item
+        android:title="Copy page ⌸⌸"
+        android:id="@+id/copy"
+        ></item>
+    <item
+        android:title="Move under ☇"
+        android:id="@+id/mvun"
+        ></item>
+    <item
+        android:title="Move down ↓"
+        android:id="@+id/mvdn"
+        ></item>
+    <item
+        android:title="Move up ↑"
+        android:id="@+id/mvup"
+        ></item>
+    <item
+        android:title="Move to bottom ↳"
+        android:id="@+id/mvbot"
+        ></item>
+    <item
+        android:title="Move to top ↰"
+        android:id="@+id/mvtop"
+        ></item>
+
+    <item
+        android:title="Swtich with ⇅"
+        android:id="@+id/sww"
+        ></item>
+</menu>

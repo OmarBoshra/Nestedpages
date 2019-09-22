@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="fill"
+    android:orientation="vertical"
+    tools:context="com.omarboshra.zero.nestedpages.Main">
+
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@android:color/white" />
+   <ListView
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:id="@+id/ml"
+       android:background="#5b2d00"
+       android:layout_alignParentTop="true"
+       android:layout_alignParentLeft="true"
+       android:layout_alignParentStart="true"
+       android:layout_above="@+id/bchoice">
+   </ListView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_above="@+id/bchoice"
+        android:id="@+id/ptb"
+android:visibility="gone"
+        >
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="39dp"
+            android:text="Paste"
+            android:textSize="23dp"
+            android:background="#f7ff04"
+            android:id="@+id/paste"
+            android:layout_weight="2"
+            android:typeface="serif"
+            />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="39dp"
+            android:text="X"
+            android:textSize="23dp"
+            android:background="#000000"
+            android:id="@+id/cancel"
+android:textColor="@android:color/white"
+
+            />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/bchoice"
+        >
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.7dp"
+            android:background="@android:color/black" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:text="➕✎"
+            android:textStyle="bold"
+            android:id="@+id/adn"
+            android:textSize="25dp"
+            android:textAllCaps="false"
+            android:background="#f5ede1"
+            android:layout_weight="1"
+
+            />
+
+    </LinearLayout>
+</RelativeLayout>

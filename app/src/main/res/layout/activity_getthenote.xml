@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.omarboshra.zero.nestedpages.getthenote"
+    android:weightSum="1"
+    android:id="@+id/mv"
+    >
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/all"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="2"
+            android:id="@+id/toppan"
+            >
+
+
+            <EditText
+                android:id="@+id/ttv"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_weight="2"
+                android:background="@android:color/white"
+                android:maxLength="105"
+                android:textColor="@color/colorPrimary"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:minHeight="44dp"
+
+                />
+
+            <ImageButton
+                android:id="@+id/background"
+                android:layout_width="39dp"
+                android:layout_height="match_parent"
+
+                android:background="#ffffff"
+
+                android:src="@drawable/background"
+
+                />
+
+            <ImageButton
+                android:id="@+id/ns"
+
+                android:layout_width="39dp"
+                android:layout_height="match_parent"
+                android:scaleType="fitCenter"
+
+                android:background="#ffffff"
+                android:src="@drawable/nosave" />
+
+
+
+        </LinearLayout>
+<!--todo view later-->
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAllCaps="true"
+            android:typeface="serif"
+            android:text="Replace ⎗"
+            android:id="@+id/rep"
+            android:visibility="gone"
+            android:background="#ffffff"
+            />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2.2dp"
+        android:background="#000000"
+        android:layout_below="@+id/all"
+        android:id="@+id/fv"
+
+        />
+    <ScrollView
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:id="@+id/sv"
+        android:layout_below="@+id/fv"
+        android:layout_alignParentLeft="true"
+
+        android:layout_alignParentStart="true">
+        <EditText
+android:typeface="serif"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/ntv"
+            android:textSize="22dp"
+            android:layout_below="@+id/all"
+            android:textColor="@color/colorAccent"
+            android:background="@android:color/white"
+            android:minHeight="44dp"
+            />
+
+    </ScrollView>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="#5b2d00"
+        android:layout_below="@+id/sv"
+        android:id="@+id/view"
+
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="#5b2d00"
+        android:layout_above="@+id/lvs"
+        android:id="@+id/vw"
+
+        />
+    <ListView
+        android:id="@+id/lvs"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:background="#5b2d00"
+        android:layout_below="@+id/view"
+        >
+
+    </ListView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/l2"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <LinearLayout
+            android:id="@+id/cyanbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/black"
+            android:orientation="horizontal"
+
+            >
+
+            <Button
+                android:id="@+id/hlb"
+                android:layout_width="70dp"
+                android:layout_height="30dp"
+                android:layout_marginBottom="1dp"
+                android:layout_marginRight="0.1dp"
+                android:background="#f5ede1"
+                android:text="▼"
+                android:textSize="19dp" />
+
+            <Button
+                android:id="@+id/cv"
+                android:layout_width="70dp"
+                android:layout_height="30dp"
+
+                android:layout_marginRight="0.1dp"
+
+                android:background="#f5ede1"
+                android:text="▲▼"
+                android:textAllCaps="false"
+                android:textSize="19dp"
+                android:textStyle="bold"
+
+                />
+
+
+            <Button
+                android:id="@+id/tag"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_weight="4"
+                android:background="#f5ede1"
+                android:text="★ View/hide"
+                android:textAllCaps="false"
+                android:textSize="19dp"
+                android:typeface="serif"
+
+
+                />
+        </LinearLayout>
+
+        <!-- todo add later for text editing -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@android:color/black"
+            android:id="@+id/led"
+            android:baselineAligned="false"
+            android:typeface="sans"
+            android:visibility="gone"
+            >
+
+
+            <Button
+                android:id="@+id/bold"
+                android:layout_width="match_parent"
+                android:layout_height="39dp"
+
+                android:layout_weight="1"
+
+                android:text="B"
+                android:textSize="22dp"
+                android:layout_marginBottom="1dp"
+                android:textStyle="bold"
+                android:typeface="serif"
+                android:background="#f5ede1"
+                />
+
+            <Button
+                android:id="@+id/itaic"
+                android:layout_width="match_parent"
+                android:layout_height="39dp"
+
+                android:layout_weight="1"
+                android:background="#f5ede1"
+                android:text="I"
+                android:textColor="@android:color/black"
+                android:textSize="22dp"
+                android:textStyle="italic"
+                android:typeface="serif" />
+
+            <Button
+                android:id="@+id/underline"
+                android:layout_width="match_parent"
+                android:layout_height="39dp"
+                android:layout_marginRight="0.1dp"
+                android:layout_weight="1"
+                android:background="#f5ede1"
+                android:text="U"
+                android:textColor="@android:color/black"
+                android:textSize="22dp"
+                android:typeface="serif" />
+
+            <Button
+                android:id="@+id/hi"
+                android:layout_width="match_parent"
+                android:layout_height="39dp"
+                android:layout_marginRight="0.2dp"
+                android:layout_weight="1"
+                android:background="#f7ff04"
+                android:text="ab"
+                android:textAllCaps="false"
+                android:typeface="serif"
+                android:textSize="17dp" />
+
+            <Button
+                android:id="@+id/hichoice"
+                android:layout_width="match_parent"
+                android:layout_height="39dp"
+                android:layout_marginRight="0.2dp"
+                android:layout_weight="1"
+                android:background="#f7ff04"
+                android:text="▼"
+                android:typeface="serif"
+                android:textSize="17dp" />
+
+            <Button
+                android:id="@+id/grow"
+                android:layout_width="match_parent"
+                android:layout_height="39dp"
+                android:layout_weight="1"
+
+                android:background="#f5ede1"
+                android:text="A▲"
+                android:textAllCaps="true"
+                android:textSize="22dp"
+                android:typeface="serif" />
+
+            <Button
+                android:id="@+id/shrink"
+                android:layout_width="match_parent"
+                android:layout_height="39dp"
+
+                android:layout_weight="1"
+                android:background="#f5ede1"
+                android:text="A▼"
+                android:textAllCaps="true"
+                android:textSize="16.5dp"
+                android:typeface="serif" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="39dp"
+                android:text="{▇}"
+                android:textAllCaps="false"
+                android:id="@+id/selall"
+                android:background="#f5ede1"
+                android:layout_weight="1"
+                android:textSize="16dp"
+
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ptb"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:orientation="horizontal">
+
+            <Button
+
+                android:id="@+id/paste"
+                android:layout_width="wrap_content"
+                android:layout_height="39dp"
+                android:layout_weight="2"
+                android:background="#f7ff04"
+                android:text="Paste"
+                android:typeface="serif"
+                android:textSize="23dp" />
+
+            <Button
+                android:id="@+id/cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="39dp"
+                android:background="#000000"
+                android:text="✖"
+                android:textColor="@android:color/white"
+                android:textSize="23dp"
+
+
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</RelativeLayout>
