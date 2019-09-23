@@ -36,7 +36,7 @@ User can bookMark any document or folder nested anywhere in the app
   [3]: https://i.stack.imgur.com/Udyqc.png
   
 User can cut,copy and saveAs documents and folders ,app also makes sure to tell user if there are similar documents & or folders in 
-the same stack
+the same stack,user can also switch and move pages without fail.
 
 # Color your docs and folders
 with a nice selection of colors ,user can simultaneously color multiple docs and folders or selectively
