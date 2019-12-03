@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.support.v4.graphics.ColorUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,6 +26,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -64,8 +66,8 @@ public class Main extends AppCompatActivity {
         DocIcon = SpannableString.valueOf("✎");
         FolIcon = SpannableString.valueOf("❒");
 
-        DocIcon.setSpan(new RelativeSizeSpan(1.5f), 0, DocIcon.length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
-        FolIcon.setSpan(new RelativeSizeSpan(1.5f), 0, FolIcon.length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+        DocIcon.setSpan(new RelativeSizeSpan(1.9f), 0, DocIcon.length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+        FolIcon.setSpan(new RelativeSizeSpan(1.9f), 0, FolIcon.length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
 
 
         android.support.v7.app.ActionBar menu= getSupportActionBar();
@@ -74,7 +76,6 @@ public class Main extends AppCompatActivity {
         menu.setDisplayShowHomeEnabled(true);
         menu.setLogo(R.mipmap.mainicon);
         menu.setDisplayUseLogoEnabled(true);
-        menu.setBackgroundDrawable(getResources().getDrawable( R.drawable.backitem));
 
 
         data db = new data(Main.this);
@@ -334,10 +335,9 @@ public class Main extends AppCompatActivity {
                 fm.setBackgroundColor( ColorUtils.setAlphaComponent(bcarray.get(position), 127));
 
 
-                Button textPart = view.findViewById(R.id.mtv);
+                TextView textPart = view.findViewById(R.id.mtv);
 
                 textPart.setBackgroundColor(bcarray.get(position));
-
                 return  view;
             }
         };
@@ -348,7 +348,6 @@ public class Main extends AppCompatActivity {
     private void ls(String title,int type){
 
         SpannableString vct=new SpannableString(TextUtils.concat(type==0?DocIcon:FolIcon,title.trim()));
-        vct.setSpan(new RelativeSizeSpan(1f), 0, (type==0?DocIcon+title.trim():FolIcon+title.trim()).length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
 
         shown.add(new SpannedString(vct));
     }
@@ -394,7 +393,7 @@ public class Main extends AppCompatActivity {
                         fm.setBackgroundColor( ColorUtils.setAlphaComponent(bcarray.get(position), 127));
 
 
-                        Button textPart = view.findViewById(R.id.mtv);
+                        TextView textPart = view.findViewById(R.id.mtv);
 
                         textPart.setBackgroundColor(bcarray.get(position));
 

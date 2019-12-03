@@ -3,26 +3,30 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content"
 android:padding="10dp"
-    android:background="@drawable/backitem"
+android:background="@color/Lightbrown"
+
     >
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Copy selected Page only"
-        android:background="@android:color/transparent"
+        android:background="@color/Lightbrown"
         android:textAllCaps="false"
         android:id="@+id/one"
+        android:padding="10dp"
 
         />
+
     <Button
+        android:id="@+id/all"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:background="@color/Lightbrown"
         android:text="Copy selected Page and its subpages"
-        android:background="@android:color/transparent"
         android:textAllCaps="false"
-        android:id="@+id/all"
-
+android:padding="10dp"
         />
 
 </LinearLayout>

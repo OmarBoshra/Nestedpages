@@ -73,6 +73,7 @@ public class getthenote extends AppCompatActivity {
     String saved="";
     String del="";
     String add ="";
+    String docadd ="";
     String gettitle;
     String s1;
     String s2;
@@ -198,7 +199,6 @@ public class getthenote extends AppCompatActivity {
 
         setContentView(R.layout.activity_getthenote);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.backitem));
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
 
@@ -232,8 +232,8 @@ public class getthenote extends AppCompatActivity {
         DocIcon = SpannableString.valueOf("✎");
         FolIcon = SpannableString.valueOf("❒");
 
-        DocIcon.setSpan(new RelativeSizeSpan(1.5f), 0, DocIcon.length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
-        FolIcon.setSpan(new RelativeSizeSpan(1.5f), 0, FolIcon.length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+        DocIcon.setSpan(new RelativeSizeSpan(1.9f), 0, DocIcon.length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+        FolIcon.setSpan(new RelativeSizeSpan(1.9f), 0, FolIcon.length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
 
         titleview.setHint("Document Name");
 
@@ -436,7 +436,7 @@ public class getthenote extends AppCompatActivity {
                             fm.setBackgroundColor( ColorUtils.setAlphaComponent(bcarray.get(position), 127));
 
 
-                            Button textPart = view.findViewById(R.id.mtv);
+                            TextView textPart = view.findViewById(R.id.mtv);
 
                             textPart.setBackgroundColor(bcarray.get(position));
 
@@ -2073,12 +2073,14 @@ public class getthenote extends AppCompatActivity {
             public View getView(int position, View convertView, ViewGroup parent) {//for items color
                 View view = super.getView(position,convertView,parent);
 
+
+
                 FrameLayout fm = view.findViewById(R.id.fram);
 
                 fm.setBackgroundColor( ColorUtils.setAlphaComponent(bcarray.get(position), 127));
 
 
-                Button textPart = view.findViewById(R.id.mtv);
+                TextView textPart = view.findViewById(R.id.mtv);
 
                 textPart.setBackgroundColor(bcarray.get(position));
 
@@ -3784,12 +3786,14 @@ public class getthenote extends AppCompatActivity {
                 public View getView(int position, View convertView, ViewGroup parent) {
                     View view = super.getView(position,convertView,parent);
 
+
+
                     FrameLayout fm = view.findViewById(R.id.fram);
 
                     fm.setBackgroundColor( ColorUtils.setAlphaComponent(bcarray.get(position), 127));
 
 
-                    Button textPart = view.findViewById(R.id.mtv);
+                    TextView textPart = view.findViewById(R.id.mtv);
 
                     textPart.setBackgroundColor(bcarray.get(position));
 

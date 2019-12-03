@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+
+
+    android:background="@color/Lightbrown"
+
+    >
 
 
 <TextView
@@ -12,12 +17,14 @@
     android:gravity="center"
     android:textStyle="bold"
     android:id="@+id/dh"
+    android:background="@color/Lightbrown"
+
     />
     <Button
         android:text="Yes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/white"
+        android:background="@color/Lightbrown"
         android:textAllCaps="false"
         android:id="@+id/dy"
         />
@@ -25,8 +32,9 @@
         android:text="No"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/white"
+        android:background="@color/Lightbrown"
         android:textAllCaps="false"
         android:id="@+id/dn"
+
         />
 </LinearLayout>

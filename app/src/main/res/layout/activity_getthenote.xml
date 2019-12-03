@@ -88,15 +88,15 @@ android:padding="4dp"
             android:background="#ffffff"
             />
     </LinearLayout>
-
+    <!-- medium white opacity-->
     <ScrollView
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:id="@+id/sv"
-android:background="@color/Lightbrown"
+android:background="#80FFFFFF"
         android:isScrollContainer="false"
 
-    >
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -144,7 +144,7 @@ android:background="@android:color/transparent"
 
                         android:id="@+id/hlb"
                         android:layout_width="70dp"
-                        android:layout_height="50dp"
+                        android:layout_height="45dp"
                         android:layout_marginBottom="1dp"
                         android:layout_marginRight="0.1dp"
                         android:background="@color/Lightbrown"
@@ -154,7 +154,7 @@ android:background="@android:color/transparent"
                     <Button
                         android:id="@+id/cv"
                         android:layout_width="70dp"
-                        android:layout_height="50dp"
+                        android:layout_height="45dp"
 
                         android:layout_marginRight="0.1dp"
 
@@ -170,7 +170,7 @@ android:background="@android:color/transparent"
                     <Button
                         android:id="@+id/tag"
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
+                        android:layout_height="45dp"
                         android:layout_weight="4"
                         android:background="@color/Lightbrown"
                         android:text="★ View/hide"

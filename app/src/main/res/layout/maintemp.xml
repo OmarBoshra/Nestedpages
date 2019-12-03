@@ -17,12 +17,12 @@ android:padding="8dp"
 
         android:id="@+id/fram">
 
-    <Button
+    <TextView
         android:id="@+id/mtv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
-
+android:background="@color/Lightbrown"
+android:textSize="21sp"
         android:textIsSelectable="false"
         android:focusable="false"
 android:clickable="false"
@@ -31,7 +31,6 @@ android:clickable="false"
         android:maxLength="108"
         android:minHeight="43dp"
         android:textColor="@android:color/black"
-        android:textSize="20dp"
         />
 
 </FrameLayout>
