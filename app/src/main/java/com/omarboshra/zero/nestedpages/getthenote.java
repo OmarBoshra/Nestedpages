@@ -12,9 +12,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.graphics.ColorUtils;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.SpanWatcher;
 import android.text.Spannable;
@@ -40,14 +41,17 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import java.util.ArrayList;
 import java.util.Collections;
+
 import static java.lang.Math.abs;
 
 
@@ -172,7 +176,6 @@ public class getthenote extends AppCompatActivity {
     ViewGroup.LayoutParams paratitle;
 
 
-    ArrayList<Integer>prevcol= new <Integer>ArrayList();
     ArrayList<Integer> bcarray= new <Integer>ArrayList();
     ArrayList<SpannedString> shown = new <Spanned>ArrayList();
     ArrayList<String> suba = new <String>ArrayList();
@@ -185,12 +188,19 @@ public class getthenote extends AppCompatActivity {
     ArrayList <String> indeptharray = new  <String> ArrayList() ;
     ContentValues values = new ContentValues();
 
+
+
+
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_getthenote);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.backitem));
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
 
         titleview = (EditText) findViewById(R.id.ttv);
         noteview = (EditText) findViewById(R.id.ntv);
@@ -209,7 +219,6 @@ public class getthenote extends AppCompatActivity {
         nosave = (ImageButton) findViewById(R.id.ns);
         v= findViewById(R.id.l2);
         scv= (ScrollView) findViewById(R.id.sv);
-        view= findViewById(R.id.view);
         led= findViewById(R.id.led);
         all= findViewById(R.id.all);
         pastetoolbar= findViewById(R.id.ptb);
@@ -285,7 +294,6 @@ public class getthenote extends AppCompatActivity {
                         ctd = 1;
                         holdtemp = getIntent().getIntExtra("temp", -1);
                     }
-                    vs();
                 }
             }
         }
@@ -304,9 +312,6 @@ public class getthenote extends AppCompatActivity {
                 colorDialogue(2);
             }
         });
-
-
-
 
 
         sellectall.setOnClickListener(new View.OnClickListener() {
@@ -336,7 +341,6 @@ public class getthenote extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 cyanbar.setVisibility(View.GONE);
-                vs();
             }
         });
 
@@ -397,7 +401,8 @@ public class getthenote extends AppCompatActivity {
             public void onClick(View v) {
 
                 if (tagclick == 0) {
-
+                    noteview.setVisibility(View.GONE);
+                    v.setBackgroundColor(Color.YELLOW);
                     shown = new <SpannedString>ArrayList();
 
                     db = new data(getthenote.this);
@@ -426,8 +431,14 @@ public class getthenote extends AppCompatActivity {
                         public View getView(int position, View convertView, ViewGroup parent) {//for items color
                             View view = super.getView(position,convertView,parent);
 
-                            view.setBackgroundColor(bcarray.get(position));
+                            FrameLayout fm = view.findViewById(R.id.fram);
 
+                            fm.setBackgroundColor( ColorUtils.setAlphaComponent(bcarray.get(position), 127));
+
+
+                            Button textPart = view.findViewById(R.id.mtv);
+
+                            textPart.setBackgroundColor(bcarray.get(position));
 
                             return  view;
                         }
@@ -436,9 +447,11 @@ public class getthenote extends AppCompatActivity {
 
                     tagclick = 1;
                 } else {
+                    v.setBackgroundColor(getResources().getColor(R.color.Lightbrown));
 
                     inside();
                     tagclick = 0;
+
                 }
 
             }
@@ -454,8 +467,9 @@ public class getthenote extends AppCompatActivity {
 
                     noteview.setVisibility(View.GONE);
                     all.setVisibility(View.GONE);
-                    vs();
                     selectionStart=noteview.getSelectionStart();
+
+
                 } else {
                     if(led.getVisibility()==View.VISIBLE){
                         toppanel.setVisibility(View.VISIBLE);
@@ -464,7 +478,6 @@ public class getthenote extends AppCompatActivity {
                     noteview.setVisibility(View.VISIBLE);
                     noteview.setSelection(selectionStart);
                     col = 0;
-                    vs();
 
                 }
             }
@@ -529,7 +542,6 @@ public class getthenote extends AppCompatActivity {
                 takenserial=new String [3] ;
                 pastetoolbar.setVisibility(View.GONE);
                 replacepage.setVisibility(View.GONE);
-                vs();
 
             }
         });
@@ -603,15 +615,13 @@ public class getthenote extends AppCompatActivity {
                         return;
 
                     }
-                    if (cdc == 1) {
+                    if (cdc == 1) {//in hard copy
                         int j = 0;
-
                         indeptharray.add(takenserial[0]);
 
                         trch();//resetting trashed page
-
                         sql.update(data.Table2, values, "serial=?", new String[]{takenserial[0]});
-
+                        values.clear();
                         reinsert(sql, 0);
                         c.moveToFirst();
                         c.moveToNext();
@@ -749,7 +759,8 @@ public class getthenote extends AppCompatActivity {
         registerForContextMenu(sub);
 
     }
-    public void serializationmanagment(){
+
+    private void serializationmanagment(){
 
         selection();
         if(!titleview.hasFocus()&&!noteview.getText().toString().isEmpty()&&!current.toString().isEmpty()) {
@@ -1262,7 +1273,7 @@ public class getthenote extends AppCompatActivity {
         }
     }
 
-    public void selection(){
+    private void selection(){
         spanclick=1;
 
 
@@ -1313,7 +1324,7 @@ public class getthenote extends AppCompatActivity {
 
 
     }
-    public void reinsert(SQLiteDatabase sql,int choice){
+    private void reinsert(SQLiteDatabase sql,int choice){
         values.clear();
         trch();//resetting trashed page
         sql.execSQL("INSERT INTO " + data.Table2 + " ( " + data.title2 + " , " + data.usageid + " , " + data.id2+ " , " + data.formats+ " , " + data.data2 + " , " + data.color+ " , " + data.type+" ) " + " SELECT " + data.title2 + " , " + data.usageid + " , " + data.id2+ " , " + data.formats + " , " + data.data2 + " , " + data.color+ " , " + data.type+ " FROM " + data.Table2 + " WHERE serial= '" + takenserial[0] + "'");
@@ -1331,7 +1342,7 @@ public class getthenote extends AppCompatActivity {
 
         values.clear();
     }
-    public void trch(){//resetting trashed page
+    private void trch(){//resetting trashed page
         if(takenserial[2]!=null){
             values.clear();
             values.put(data.trash, (byte[]) null);
@@ -1339,7 +1350,7 @@ public class getthenote extends AppCompatActivity {
         }
     }
 
-    public void addnew(String gettitlen,ArrayList<String>x){
+    private void addnew(String gettitlen,ArrayList<String>x){
         int y = 1;
         String right="";
         String alll="";
@@ -1396,7 +1407,7 @@ public class getthenote extends AppCompatActivity {
         repeat = gettitlen +" "+"("+y+")";
         allrights = new <Integer>ArrayList();
     }
-    public void moveunder(){
+    private void moveunder(){
 
         int s,c=0,i,inc=0;
         if(pos>vpos){
@@ -1419,7 +1430,7 @@ public class getthenote extends AppCompatActivity {
 
     }
 
-    public void switches(int i){
+    private void switches(int i){
         db = new data(this);
         sql = db.getWritableDatabase();
 
@@ -1461,7 +1472,7 @@ public class getthenote extends AppCompatActivity {
         holdtemp=temp;
 
     }
-    public void lm(int id) {
+    private void lm(int id) {
 
         switch (id) {
             case 1:
@@ -1505,7 +1516,7 @@ public class getthenote extends AppCompatActivity {
         }
     }
 
-    public void trans(int id){
+    private void trans(int id){
         mnd=1;
         switch(id){
             case 5:
@@ -1522,58 +1533,9 @@ public class getthenote extends AppCompatActivity {
         mnd=0;
 
     }
-    public void vs() {
-
-        int padding = 0;
-
-        params= (ViewGroup.MarginLayoutParams) view.getLayoutParams();
-        params2 = (ViewGroup.MarginLayoutParams) scv.getLayoutParams();
-        Listviewpara=(ViewGroup.MarginLayoutParams) sub.getLayoutParams();
-
-        if (pastetoolbar.getVisibility() == View.VISIBLE || led.getVisibility() == View.VISIBLE) {
-            if (pastetoolbar.getVisibility() == View.VISIBLE && led.getVisibility() == View.VISIBLE) {
-                if (cyanbar.getVisibility() == View.VISIBLE) {
-                    padding = (int) this.getResources().getDimension(R.dimen.topviewmarginall);
-                }else
-                    padding = (int) this.getResources().getDimension(R.dimen.topviewmarginpasted);
-            } else   if (cyanbar.getVisibility() == View.VISIBLE) {
-                if(led.getVisibility() == View.VISIBLE){
-                    padding = (int) this.getResources().getDimension(R.dimen.topviewmarginpastet);
-                }else
-                    padding = (int) this.getResources().getDimension(R.dimen.topviewmarginpastet);
-            }else
-                padding = (int) this.getResources().getDimension(R.dimen.topviewmarginpaste);
-        } else if (cyanbar.getVisibility() == View.GONE) {
-            padding = 6;
-
-        } else
-            padding = (int) this.getResources().getDimension(R.dimen.topviewmargin)+1;
-
-        if (col == 1) {
-            params.setMargins(0, 0,
-                    0, 0);
-            params2.setMargins(0, 0,
-                    0, 0);
-        }else {
-            params2.setMargins(0, 0, 0, padding);
-            params.setMargins(0, 0, 0, -padding);
-        }if(padding==6){
-            Listviewpara.setMargins(0, 0, 0,0);
-        }else
-            Listviewpara.setMargins(0, 0, 0,padding);
 
 
-        scv.requestLayout();
-        noteview.requestLayout();
-        view.requestLayout();
-
-
-        noteview.requestLayout();
-    }
-
-
-
-    public void choicedialog(){
+    private void choicedialog(){
 
         final  Dialog c = new Dialog(this);
         c.setContentView(R.layout.copydialog);
@@ -1609,7 +1571,6 @@ public class getthenote extends AppCompatActivity {
                     if (cdc == 0) {
                         pastetoolbar.setVisibility(View.GONE);
                         replacepage.setVisibility(View.GONE);
-                        vs();
 
                     }
                 }
@@ -1632,7 +1593,6 @@ public class getthenote extends AppCompatActivity {
             }
         });
     }
-
 
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         getMenuInflater().inflate(R.menu.contextmenu,menu);
@@ -1667,11 +1627,9 @@ public class getthenote extends AppCompatActivity {
                 break;
             case R.id.copy:
                 copym(0);
-                vs();
                 break;
             case R.id.cut:
                 cutm(0);
-                vs();
                 break;
             default:
                 trans(4);
@@ -1741,11 +1699,10 @@ public class getthenote extends AppCompatActivity {
             } else if (id == R.id.copyp) {
                 nextintent = 6;
                 copym(nextintent);
-                vs();
             } else if (id == R.id.cutp) {
                 nextintent = 7;
                 cutm(nextintent);
-                vs();
+
             } else if (id == R.id.spa) {
 
                 ctd = 0;
@@ -1762,7 +1719,6 @@ public class getthenote extends AppCompatActivity {
                 pastetoolbar.setVisibility(View.VISIBLE);
 //                replacepage.setVisibility(View.VISIBLE);
 
-                vs();
 
             }
         }
@@ -1816,7 +1772,6 @@ public class getthenote extends AppCompatActivity {
 
 
                 }
-                vs();
                 edcl=1;
             }else {
                 led.setVisibility(View.GONE);
@@ -1826,13 +1781,12 @@ public class getthenote extends AppCompatActivity {
                     noteview.setVisibility(View.GONE);
                 }
                 edcl=0;
-                vs();
             }
 
         }
         return super.onOptionsItemSelected(item);
     }
-    public void cutm(int ni){
+    private void cutm(int ni){
 
         if (save(sql) == 1)
         {
@@ -1863,10 +1817,9 @@ public class getthenote extends AppCompatActivity {
         Paste.setText("Paste");
         pastetoolbar.setVisibility(View.VISIBLE);
 //        replacepage.setVisibility(View.VISIBLE);
-        vs();
         Toast.makeText(this, "Page cut", Toast.LENGTH_SHORT).show();
     }
-    public void totrashcan(){
+    private void totrashcan(){
 
         if(add.equals("a")){//remove what the addsub added to remove similarity of trashcan text
             salist.remove(salist.get(salist.size()-1));
@@ -1885,8 +1838,8 @@ public class getthenote extends AppCompatActivity {
         inside();
 
     }
-    public void copym(int ni){
-        if (save(sql) == 1)
+    private void copym(int ni){
+        if (save(sql) == 1)// the already opened page
         {
             dialog();
             return;
@@ -1920,10 +1873,9 @@ public class getthenote extends AppCompatActivity {
 
         pastetoolbar.setVisibility(View.VISIBLE);
 //        replacepage.setVisibility(View.VISIBLE);
-        vs();
         Toast.makeText(this, "Page copied", Toast.LENGTH_SHORT).show();
     }
-    public void home(SQLiteDatabase sql){
+    private void home(SQLiteDatabase sql){
         if(save(sql)==1){
             dialog();
             return;
@@ -1941,7 +1893,7 @@ public class getthenote extends AppCompatActivity {
         finish();
         nextintent=0;
     }
-    public void folderconv(){
+    private void folderconv(){
 
         if(dtype==0) {
             dtype = 1;
@@ -1968,7 +1920,7 @@ public class getthenote extends AppCompatActivity {
         }
 
     }
-    public void bookmark(SQLiteDatabase sql,Cursor c){
+    private void bookmark(SQLiteDatabase sql,Cursor c){
         if (save(sql) == 1) {
             dialog();
             return;
@@ -2006,7 +1958,7 @@ public class getthenote extends AppCompatActivity {
         nextintent=0;
 
     }
-    public void clearformat(SQLiteDatabase sql){
+    private void clearformat(SQLiteDatabase sql){
         if(save(sql)==1){
             dialog();
             return;
@@ -2016,8 +1968,7 @@ public class getthenote extends AppCompatActivity {
         onlyformats="";
         nextintent=0;
     }
-
-    public void inside(){
+    private void inside(){
 
 
         db = new data(getthenote.this);
@@ -2030,9 +1981,8 @@ public class getthenote extends AppCompatActivity {
             led.setVisibility(View.GONE);
             toppanel.setVisibility(View.GONE);
             noteview.setVisibility(View.VISIBLE);
-            vs();
         }
-        prevcol.add(col);
+
         if(col==1&&mnd==0) {
 
             all.setVisibility(View.VISIBLE);
@@ -2085,6 +2035,8 @@ public class getthenote extends AppCompatActivity {
                 bcc=color;
                 dtype=type;
                 noteview.setBackgroundColor(color);
+                scv.setBackgroundColor(ColorUtils.setAlphaComponent(color, 127));
+
             }
 
             if (idn.equals(serial)) {
@@ -2121,8 +2073,14 @@ public class getthenote extends AppCompatActivity {
             public View getView(int position, View convertView, ViewGroup parent) {//for items color
                 View view = super.getView(position,convertView,parent);
 
-                view.setBackgroundColor(bcarray.get(position));
+                FrameLayout fm = view.findViewById(R.id.fram);
 
+                fm.setBackgroundColor( ColorUtils.setAlphaComponent(bcarray.get(position), 127));
+
+
+                Button textPart = view.findViewById(R.id.mtv);
+
+                textPart.setBackgroundColor(bcarray.get(position));
 
                 return  view;
             }
@@ -2211,7 +2169,7 @@ public class getthenote extends AppCompatActivity {
         values.clear();
 
     }
-    public void addsub(SQLiteDatabase sql,InputMethodManager imm){
+    private void addsub(SQLiteDatabase sql,InputMethodManager imm){
 
         del = "";
         if(serial.equals("1")){//to view menu intrash
@@ -2246,6 +2204,7 @@ public class getthenote extends AppCompatActivity {
         noteview.setVisibility(View.VISIBLE);
         all.setVisibility(View.VISIBLE);
         noteview.setBackgroundColor(bcc);
+        scv.setBackgroundColor(ColorUtils.setAlphaComponent(bcc, 127));
 
         onlyformats="";
         add = "a";
@@ -2255,7 +2214,7 @@ public class getthenote extends AppCompatActivity {
         }else
             titleview.setHint("Document Name");
         dtype=0;
-        noteview.setHint("");
+        noteview.setHint("AddText ✎..");
         noteview.setText("");
         titleview.setText("");
         noteview.requestFocus();
@@ -2269,11 +2228,11 @@ public class getthenote extends AppCompatActivity {
         }
 
     }
-    public void qd(SQLiteDatabase sql){
+    private void qd(SQLiteDatabase sql){
         sql.delete(data.Table2, "serial=?", new String[]{serial});
         sql.delete(data.Table3, "serial2=?", new String[]{serial});
     }
-    public String [] cm(String gettitlen,String subnoten,SQLiteDatabase sql) {
+    private String [] cm(String gettitlen,String subnoten,SQLiteDatabase sql) {
 
         if(titleview.getText().toString().trim().isEmpty()){
             if(noteview.getText().toString().trim().isEmpty()){
@@ -2321,7 +2280,7 @@ public class getthenote extends AppCompatActivity {
             return new String[]{"0", gettitlen};
 
     }
-    public void deletedia(int sel){
+    private void deletedia(int sel){
         final  Dialog d = new Dialog(getthenote.this);
         d.setContentView(R.layout.deletedialogue);
 
@@ -2358,7 +2317,7 @@ public class getthenote extends AppCompatActivity {
         });
 
     }
-    public void delete(ArrayList<String> serialarray,String lserial,int lrep){
+    private void delete(ArrayList<String> serialarray,String lserial,int lrep){
 
 //todo make sure delete works rightaway
         if (del.equals("")&&lrep==0) {
@@ -2505,8 +2464,7 @@ public class getthenote extends AppCompatActivity {
         }
 
     }
-
-    public int save(SQLiteDatabase sql) {
+    private int save(SQLiteDatabase sql) {
 
         if(del.equals("df")&&rep!=1||del.equals("di")){
 
@@ -2655,8 +2613,7 @@ public class getthenote extends AppCompatActivity {
         }
         return  0;
     }
-
-    public int sn( String g,ArrayList <String> similarity,ArrayList <String> serialsimilarity){
+    private int sn( String g,ArrayList <String> similarity,ArrayList <String> serialsimilarity){
 
         if (similarity==null||similarity.size() == 0||serial.equals("1"))  {
             return 0;
@@ -2673,8 +2630,7 @@ public class getthenote extends AppCompatActivity {
 
         return 0;
     }
-
-    public void wtch(){
+    private void wtch(){
 
 
         note=new TextWatcher() {
@@ -2720,17 +2676,7 @@ public class getthenote extends AppCompatActivity {
         noteview.addTextChangedListener(note);
 
     }
-
-
-
-
-
-
-
-
-
-
-    public void titlewatcher(){
+    private void titlewatcher(){
 
 
         title=(new TextWatcher() {
@@ -2786,8 +2732,7 @@ public class getthenote extends AppCompatActivity {
         });
         titleview.addTextChangedListener(title);
     }
-
-    public void touch(){
+    private void touch(){
 
         sub.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -2821,7 +2766,7 @@ public class getthenote extends AppCompatActivity {
             }
         });
     }
-    public boolean titleinitialize(){
+    private boolean titleinitialize(){
         det = 1;
         ndet=0;
         noteview.removeTextChangedListener(note);
@@ -2861,7 +2806,7 @@ public class getthenote extends AppCompatActivity {
             return false;
         }
     }
-    public void handler2(int zeroc){
+    private void handler2(int zeroc){
 
         if(zeroc==0){
             handler.removeCallbacksAndMessages(null);
@@ -2894,8 +2839,7 @@ public class getthenote extends AppCompatActivity {
             }, 200);
         }
     }
-
-    public void handler3(int zerocn) {
+    private void handler3(int zerocn) {
 
         if(zerocn==2) {
             handler2.removeCallbacksAndMessages(null);
@@ -2911,8 +2855,6 @@ public class getthenote extends AppCompatActivity {
             }, 200);
         }
     }
-
-
     public void notesave(){
 
         notesave=new TextWatcher() {
@@ -2944,9 +2886,7 @@ public class getthenote extends AppCompatActivity {
                 }
 
                 numberc=s.length();
-                toppanel.setVisibility(View.VISIBLE);
                // led.setVisibility(View.VISIBLE);
-                vs();
             }
 
             @Override
@@ -3320,8 +3260,7 @@ public class getthenote extends AppCompatActivity {
         };
         noteview.addTextChangedListener(notesave);
     }
-
-    public String splitlines(String sp,String res){
+    private String splitlines(String sp,String res){
         String[] lines = sp.split("\n");
         for (int i = 0; i < lines.length; i++) {
             if (!lines[i].isEmpty()) {
@@ -3331,7 +3270,7 @@ public class getthenote extends AppCompatActivity {
         }
         return null;
     }
-    public void simcheck(ArrayList <String> x,ArrayList <String> y){
+    private void simcheck(ArrayList <String> x,ArrayList <String> y){
         for(int i =0;i<x.size();i++){
             if(x.get(i).equals(titleview.getText().toString())){
                 x.remove(i);
@@ -3339,7 +3278,7 @@ public class getthenote extends AppCompatActivity {
             }
         }
     }
-    public void spanselection(){
+    private void spanselection(){
 
 
         watcher = new SpanWatcher() {
@@ -3370,7 +3309,7 @@ public class getthenote extends AppCompatActivity {
 
 
     }
-    public void handler(){
+    private void handler(){
 
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -3379,7 +3318,6 @@ public class getthenote extends AppCompatActivity {
                 if (noteview.hasSelection()) {
                     sp = 1;
                  //   led.setVisibility(View.VISIBLE);
-                    vs();
                     selectionStart = noteview.getSelectionStart();
 
                     selectionEnd = noteview.getSelectionEnd();
@@ -3396,7 +3334,7 @@ public class getthenote extends AppCompatActivity {
 
 
     }
-    public void dialog(){
+    private void dialog(){
 
         db = new data(getthenote.this);
         if(nextintent==1){
@@ -3579,7 +3517,7 @@ public class getthenote extends AppCompatActivity {
         });
     }
 
-    public  void switchafter(SQLiteDatabase sql,Cursor c ){
+    private  void switchafter(SQLiteDatabase sql,Cursor c ){
         if(pd==1){
             Paste.performClick();
             nextintent=0;
@@ -3631,23 +3569,9 @@ public class getthenote extends AppCompatActivity {
         toppanel.setVisibility(View.GONE);
 
 
-        if(col==1&&mnd==0){
-
-            all.setVisibility(View.VISIBLE);
-            if(prevcol.get(prevcol.size()-1)==2){//to open page
-                noteview.setVisibility(View.VISIBLE);
-                prevcol.remove(prevcol.size() - 1);
-                col=0;
-                return;
-            }
-            col = 0;
-
-
-        }
 
         if(!cyanbar.isShown()&&del.isEmpty()) {
             cyanbar.setVisibility(View.VISIBLE);
-            vs();
             return;
         }
         back = new Intent(getthenote.this, Main.class);
@@ -3785,6 +3709,8 @@ public class getthenote extends AppCompatActivity {
                     bcc = color;
                     dtype = type;
                     noteview.setBackgroundColor(color);
+                    scv.setBackgroundColor(ColorUtils.setAlphaComponent(color, 127));
+
                 }
                 if (idn.equals(serial)) {
                     ls(titlesubs, type);//spanning listitems
@@ -3804,17 +3730,7 @@ public class getthenote extends AppCompatActivity {
                 invalidateOptionsMenu();//restart onprepare
             }
 
-            if (prevcol.size() != 0) {
-                if (prevcol.get(prevcol.size() - 1) == 1) {//to keep open sub pages
-                    noteview.setVisibility(View.GONE);
-                    all.setVisibility(View.GONE);
-                    prevcol.set(prevcol.size() - 1, 2);
-                    col = 1;//top open page in next back
-                } else
-                    prevcol.remove(prevcol.size() - 1);
 
-
-            }
             if (usageid == 0) {
 
                 if (oldusageid == 1) {
@@ -3857,7 +3773,6 @@ public class getthenote extends AppCompatActivity {
             saved = "s";
             tagclick = 0;
             snote = 0;
-            vs();
             temp = -1;
 
             notesave();
@@ -3869,8 +3784,14 @@ public class getthenote extends AppCompatActivity {
                 public View getView(int position, View convertView, ViewGroup parent) {
                     View view = super.getView(position,convertView,parent);
 
-                    view.setBackgroundColor(bcarray.get(position));
+                    FrameLayout fm = view.findViewById(R.id.fram);
 
+                    fm.setBackgroundColor( ColorUtils.setAlphaComponent(bcarray.get(position), 127));
+
+
+                    Button textPart = view.findViewById(R.id.mtv);
+
+                    textPart.setBackgroundColor(bcarray.get(position));
 
                     return  view;
                 }
@@ -3895,7 +3816,7 @@ public class getthenote extends AppCompatActivity {
 
         }
     }
-    public void colorDialogue(int dec){
+    private void colorDialogue(int dec){
 
         final Dialog hc = new Dialog(getthenote.this);
 
@@ -4005,10 +3926,11 @@ public class getthenote extends AppCompatActivity {
             }
         });
     }
-    public void colorset(int type,int dec ){
+    private void colorset(int type,int dec ){
 
         if(dec==1){
             noteview.setBackgroundColor(bcc=type);
+            scv.setBackgroundColor(ColorUtils.setAlphaComponent(type, 127));
 
             if(saved.equals("s")) {
 
@@ -4061,7 +3983,7 @@ public class getthenote extends AppCompatActivity {
         }
 
     }
-    public void resetfile(){
+    private void resetfile(){
         r = getResources();
         px =(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 44, r.getDisplayMetrics());
 
@@ -4071,7 +3993,7 @@ public class getthenote extends AppCompatActivity {
 
         tt=0;
     }
-    public SpannedString wsd(String text,String onlyformats){
+    private SpannedString wsd(String text,String onlyformats){
         SpannedString sp = new SpannedString((text));
         if(backString==null&&spanclick==0) {
 
@@ -4165,7 +4087,7 @@ public class getthenote extends AppCompatActivity {
         sp=allS;
         return sp;
     }
-    public void typeswitch(){
+    private void typeswitch(){
         if(dtype==1){//AT VISABILITY
             noteview.setHint("(Optional folder description)");
 
@@ -4174,7 +4096,6 @@ public class getthenote extends AppCompatActivity {
                 led.setVisibility(View.GONE);
                 all.setVisibility(View.GONE);
                 noteview.setVisibility(View.GONE);
-                vs();
 
             }
 
@@ -4182,24 +4103,24 @@ public class getthenote extends AppCompatActivity {
             titleview.setHint("Folder name");
         }else {
             titleview.setHint("Document title");
-            noteview.setHint("");
+            noteview.setHint("AddText ✎..");
             noteview.setVisibility(View.VISIBLE);
             titleview.setVisibility(View.VISIBLE);
             noteview.requestFocus();
         }
     }
-    public void bi(){
+    private void bi(){
         back.putExtra("cc", cdc);
         back.putExtra("temp", holdtemp);
         back.putExtra("tkns", takenserial);
     }
-    public void resetm(String s){
+    private void resetm(String s){
         allVs= wsd(s,(""));
         rlp=cstart;
         rrp=selectionEnd+(afterc-beforec);
         backString="";
     }
-    public void rpm(){
+    private void rpm(){
         Paste.performClick();
         if(ctd==1) {
             sub.performItemClick(null, temp,temp);
@@ -4209,14 +4130,14 @@ public class getthenote extends AppCompatActivity {
         }
         rep = 0;
     }
-    public void ls(String title,int type){
+    private void ls(String title,int type){
 
         SpannableString vct=new SpannableString(TextUtils.concat(type==0?DocIcon:FolIcon,title.trim()));
         vct.setSpan(new RelativeSizeSpan(1f), 0, (type==0?DocIcon+title.trim():FolIcon+title.trim()).length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
 
         shown.add(new SpannedString(vct));
     }
-    public Menu trashvs(){
+    private Menu trashvs(){
         if(serial.equals("1")&&nextintent != 1) {//VISABILITY for trash can
 
 
@@ -4245,7 +4166,6 @@ public class getthenote extends AppCompatActivity {
 
             }else
                 lali=salist.size()-1;
-            prevcol=new ArrayList<Integer>();
 
             led.setVisibility(View.GONE);
             toppanel.setVisibility(View.GONE);

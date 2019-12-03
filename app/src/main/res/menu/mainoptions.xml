@@ -7,7 +7,6 @@
         android:typeface="serif"
         app:showAsAction="always"
         android:id="@+id/tagm"
-
 ></item>
 
 

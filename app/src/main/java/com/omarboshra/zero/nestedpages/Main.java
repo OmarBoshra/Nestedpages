@@ -5,6 +5,8 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
+import android.support.v4.graphics.ColorUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
@@ -21,6 +23,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -71,6 +74,7 @@ public class Main extends AppCompatActivity {
         menu.setDisplayShowHomeEnabled(true);
         menu.setLogo(R.mipmap.mainicon);
         menu.setDisplayUseLogoEnabled(true);
+        menu.setBackgroundDrawable(getResources().getDrawable( R.drawable.backitem));
 
 
         data db = new data(Main.this);
@@ -167,7 +171,7 @@ public class Main extends AppCompatActivity {
         registerForContextMenu(mainlist);
     }
 
-    public void transfers(int id){
+    private void transfers(int id){
         Intent mar = new Intent(this,getthenote.class);
         mar.putExtra("lm","");
         if(id==5){
@@ -291,7 +295,7 @@ public class Main extends AppCompatActivity {
         return super.onContextItemSelected(item);
     }
 
-    public void mlq(){
+    private void mlq(){
         data db = new data(Main.this);
         SQLiteDatabase sql = db.getWritableDatabase();
         Cursor c = sql.rawQuery("select * from "+data.Table2,null);
@@ -325,8 +329,14 @@ public class Main extends AppCompatActivity {
             public View getView(int position, View convertView, ViewGroup parent) {
                 View view = super.getView(position,convertView,parent);
 
-                view.setBackgroundColor(bcarray.get(position));
+                FrameLayout fm = view.findViewById(R.id.fram);
 
+                fm.setBackgroundColor( ColorUtils.setAlphaComponent(bcarray.get(position), 127));
+
+
+                Button textPart = view.findViewById(R.id.mtv);
+
+                textPart.setBackgroundColor(bcarray.get(position));
 
                 return  view;
             }
@@ -335,7 +345,7 @@ public class Main extends AppCompatActivity {
 
 
     }
-    public void ls(String title,int type){
+    private void ls(String title,int type){
 
         SpannableString vct=new SpannableString(TextUtils.concat(type==0?DocIcon:FolIcon,title.trim()));
         vct.setSpan(new RelativeSizeSpan(1f), 0, (type==0?DocIcon+title.trim():FolIcon+title.trim()).length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
@@ -352,6 +362,8 @@ public class Main extends AppCompatActivity {
         Cursor c = sql.rawQuery("select * from " + data.Table2, null);
         shown = new <SpannedString>ArrayList();
         int id = item.getItemId();
+
+
         if (id == R.id.tagm) {
 
             if(tagclick==0) {
@@ -377,8 +389,14 @@ public class Main extends AppCompatActivity {
                     public View getView(int position, View convertView, ViewGroup parent) {
                         View view = super.getView(position,convertView,parent);
 
-                        view.setBackgroundColor(bcarray.get(position));
+                        FrameLayout fm = view.findViewById(R.id.fram);
 
+                        fm.setBackgroundColor( ColorUtils.setAlphaComponent(bcarray.get(position), 127));
+
+
+                        Button textPart = view.findViewById(R.id.mtv);
+
+                        textPart.setBackgroundColor(bcarray.get(position));
 
                         return  view;
                     }

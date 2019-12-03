@@ -1,30 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
 
 
-    <TextView
+    >
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="3dp"
+        android:layout_marginTop="3dp"
+android:padding="8dp"
+
+
+        android:id="@+id/fram">
+
+    <Button
         android:id="@+id/mtv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
+
+        android:textIsSelectable="false"
+        android:focusable="false"
+android:clickable="false"
         android:gravity="left"
         android:typeface="serif"
         android:maxLength="108"
         android:minHeight="43dp"
         android:textColor="@android:color/black"
-android:textSize="20dp"
-       />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1.4dp"
-        android:background="#5b2d00"
-        android:layout_below="@+id/sv"
-        android:id="@+id/view"
-
+        android:textSize="20dp"
         />
 
-</LinearLayout>
+</FrameLayout>
+
+</RelativeLayout>
