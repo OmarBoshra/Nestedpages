@@ -25,7 +25,7 @@
         android:visible="false"
         ></item>
     <item
-        android:title="➕✎"
+        android:title="➕"
         app:showAsAction="always"
         android:id="@+id/addsub"
         ></item>

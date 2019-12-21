@@ -620,10 +620,10 @@ public class getthenote extends AppCompatActivity {
                         indeptharray.add(takenserial[0]);
 
                         trch();//resetting trashed page
-                        sql.update(data.Table2, values, "serial=?", new String[]{takenserial[0]});
-                        values.clear();
+
                         reinsert(sql, 0);
-                        c.moveToFirst();
+
+                        c.moveToFirst();//from insert method
                         c.moveToNext();
 
                         do {
@@ -632,34 +632,38 @@ public class getthenote extends AppCompatActivity {
                             int cusageid = c.getInt(c.getColumnIndex(data.usageid));
                             String ctitle = c.getString(c.getColumnIndex(data.title2));
                             String cnote = c.getString(c.getColumnIndex(data.data2));
-                            String conlyformate=c.getString(c.getColumnIndex(data.formats));
-                            int ccolor=c.getInt(c.getColumnIndex(data.color));
-                            int ctype=c.getInt(c.getColumnIndex(data.type));
+                            String conlyformate= c.getString(c.getColumnIndex(data.formats));
+                            int ccolor= c.getInt(c.getColumnIndex(data.color));
+                            int ctype= c.getInt(c.getColumnIndex(data.type));
 
-
+//todo make qury instead of loop
 
                             if (cid.equals(indeptharray.get(j))) {
-                                indeptharray.add(serialn);
+
                                 values.clear();
-                                g = sql.query(data.Table2, new String[]{"MAX(" + data.serial + ")"}, null, null, null, null, null);
-                                g.moveToFirst();
-                                values.put(data.id2, g.getString(0));
+
                                 values.put(data.usageid, cusageid);
+                                values.put(data.id2, maxr2);// the maximum serial number after just added
                                 values.put(data.title2, ctitle);
                                 values.put(data.data2, cnote);
                                 values.put(data.formats, conlyformate);
                                 values.put(data.color, ccolor);
                                 values.put(data.type, ctype);
                                 sql.insert(data.Table2, null, values);
+
+
+                                indeptharray.add(serialn);
                             }
 
                             if (c.moveToNext() == false) {
                                 c.moveToFirst();
+                                c.moveToNext();
+                                maxr2=String.valueOf(Integer.parseInt(maxr2)+1);
                                 j++;
                             }
                         } while (j!=indeptharray.size());
 
-                        indeptharray = new <String>ArrayList();
+                        indeptharray.clear();
 
 
                     }
@@ -1336,7 +1340,7 @@ public class getthenote extends AppCompatActivity {
         g = sql.query(data.Table2, new String[]{"MAX(" + data.serial + ")"}, null, null, null, null, null);
         g.moveToFirst();
         maxr2=g.getString(0);
-        values.put(data.id2, serial);
+        values.put(data.id2, serial);//to paste inside the current page
 
         sql.update(data.Table2, values, "serial=?", new String[]{maxr2});
 
@@ -2012,8 +2016,8 @@ public class getthenote extends AppCompatActivity {
             String title = c.getString(c.getColumnIndex(data.title2));
             String idn = c.getString(c.getColumnIndex(data.id2));
             String datas = c.getString(c.getColumnIndex(data.data2));
-            String serialn=c.getString(c.getColumnIndex(data.serial));
-            String formatsn=c.getString(c.getColumnIndex(data.formats));
+            String serialn= c.getString(c.getColumnIndex(data.serial));
+            String formatsn= c.getString(c.getColumnIndex(data.formats));
             String trashn= c.getString(c.getColumnIndex(data.trash));
             int color = c.getInt(c.getColumnIndex(data.color));
             int usageidn = c.getInt(c.getColumnIndex(data.usageid));
@@ -2358,7 +2362,7 @@ public class getthenote extends AppCompatActivity {
                         deletearray = serialarray;
 
                         c.moveToFirst();
-                        c.moveToNext();
+                        c.moveToNext();//because of trashcan
 
                         do {
                             String idn = c.getString(c.getColumnIndex(data.id2));
@@ -3004,7 +3008,7 @@ public class getthenote extends AppCompatActivity {
                                             if (afterc > beforec) {
                                                 rrp = selectionStart + (afterc - beforec);//added after-before so it works in added words in text autocorrect handler
                                             } else if ((beforec > afterc)) {
-                                                rrp = selectionStart - 1;//selection start if the cursor is after right jndex with a char then backspaces
+                                                rrp = selectionStart - 1;//selection start if the c is after right jndex with a char then backspaces
                                             } else
                                                 rrp = selectionStart;//final right
 
@@ -3412,7 +3416,7 @@ public class getthenote extends AppCompatActivity {
                 else
                     nosave.performClick();
                 d.dismiss();
-                switchafter(sql,c);
+                switchafter(sql, c);
             }
         });
         save.setOnClickListener(new View.OnClickListener() {
@@ -3445,7 +3449,7 @@ public class getthenote extends AppCompatActivity {
 
                 det=1;
                 save(sql);
-                switchafter(sql,c);
+                switchafter(sql, c);
                 d.dismiss();
             }
         });
@@ -3465,7 +3469,7 @@ public class getthenote extends AppCompatActivity {
                 }
                 det=1;
                 save(sql);
-                switchafter(sql,c);
+                switchafter(sql, c);
 
             }
         });
@@ -3479,7 +3483,7 @@ public class getthenote extends AppCompatActivity {
 
                 do {
                     String idn = c.getString(c.getColumnIndex(data.id2));
-                    String serialn=c.getString(c.getColumnIndex(data.serial));
+                    String serialn= c.getString(c.getColumnIndex(data.serial));
 
                     if (idn.equals(repserial)) {
                         repserialarray.add(serialn);
