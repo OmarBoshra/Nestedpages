@@ -53,6 +53,7 @@ with a nice selection of colors ,user can simultaneously color multiple docs and
 #Effective autosaving 
 App makes sure data remians intact ,user doesn't have to worry about pressing a save button
 
+The app also doesn't consume ram as it's stack is added to internal memory .
 App Link on googlePlay:
 https://play.google.com/store/apps/details?id=com.omarboshra.simplestylinglibraryproject
 
